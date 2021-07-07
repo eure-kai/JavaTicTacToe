@@ -1,7 +1,5 @@
 //Note: This program assumes your window is 600 by 600
 
-package JavaTicTacToe;
-
 import java.util.concurrent.TimeUnit;
 import java.awt.*;
 import java.applet.*;
@@ -166,9 +164,6 @@ public class Main extends Applet implements MouseListener {
         
         
         
-        
-        
-        
-  
+       
     
 }
