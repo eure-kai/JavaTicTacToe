@@ -1,5 +1,7 @@
 //Note: This program assumes your window is 600 by 600
 
+package JavaTicTacToe;
+
 import java.util.concurrent.TimeUnit;
 import java.awt.*;
 import java.applet.*;
@@ -79,18 +81,9 @@ public class Main extends Applet implements MouseListener {
             }
         }
           
-        boolean p1 = checkWin("O");
-        boolean p2 = checkWin("X");
-        boolean tie = checkTie();
-        
-        if (p1) end(g, "O");
-        if (p2) end(g, "X");
-        if (tie) end(g, null);
-        
-        
-        
-        
+        checkOver(g);
     }
+    
     
     public boolean checkWin(String player) {
         
@@ -119,6 +112,7 @@ public class Main extends Applet implements MouseListener {
         return false;
     }
     
+    
     public boolean checkTie() {
         for (String[] row: board) {
             for (String sym: row) {
@@ -130,13 +124,27 @@ public class Main extends Applet implements MouseListener {
         return true;
     }
     
+    
+    public void checkOver(Graphics g) {
+        boolean p1 = checkWin("O");
+        boolean p2 = checkWin("X");
+        boolean tie = checkTie();
+        
+        if (p1) end(g, "O");
+        if (p2) end(g, "X");
+        if (tie) end(g, null);
+        
+    }
+    
+    
     public void end(Graphics g, String player) {
+        
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-            
+        
         g.setColor(Color.black);
         g.fillRect(0, 0, 600, 600);
         
