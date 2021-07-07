@@ -1,7 +1,6 @@
-//Note: This assumes your window is 600 by 600
+//Note: This program assumes your window is 600 by 600
 
-import java.awt.Font;
-
+import java.util.concurrent.TimeUnit;
 import java.awt.*;
 import java.applet.*;
 import java.awt.event.*;
@@ -30,9 +29,8 @@ public class Main extends Applet implements MouseListener {
     public void mouseExited(MouseEvent e) {}
     
     public void mousePressed(MouseEvent e) {
-        if (isTie || isWin) {
-            return;
-        }
+        
+        if (isWin || isTie) return;
         
         if (turn % 2 == 0) player = "O";
         else player = "X";
@@ -59,6 +57,7 @@ public class Main extends Applet implements MouseListener {
     public void mouseReleased(MouseEvent e) {}
     
     public void paint(Graphics g) {
+        if (isWin || isTie) return;
         
         g.setColor(Color.white);
         g.drawLine(200, 0, 200, 600);
@@ -79,34 +78,18 @@ public class Main extends Applet implements MouseListener {
                 }
             }
         }
+          
+        boolean p1 = checkWin("O");
+        boolean p2 = checkWin("X");
+        boolean tie = checkTie();
         
-        if (checkWin("O")) {
-            g.setColor(Color.black);
-            g.fillRect(0, 0, 600, 600);
-            
-            g.setColor(Color.white);
-            g.setFont(new Font("Monospaced", Font.PLAIN, 50));
-            g.drawString("Player O won!", 150, 300);
-            return;
-            
-        } else if (checkWin("X")) {
-            g.setColor(Color.black);
-            g.fillRect(0, 0, 600, 600);
-            
-            g.setColor(Color.white);
-            g.setFont(new Font("Monospaced", Font.PLAIN, 50));
-            g.drawString("Player X won!", 150, 300);
-            return;
-            
-        } else if (checkTie()) {
-            g.setColor(Color.black);
-            g.fillRect(0, 0, 600, 600);
-            
-            g.setColor(Color.white);
-            g.setFont(new Font("Monospaced", Font.PLAIN, 50));
-            g.drawString("It's a Tie!", 150, 300);
-            return;
-        }
+        if (p1) end(g, "O");
+        if (p2) end(g, "X");
+        if (tie) end(g, null);
+        
+        
+        
+        
     }
     
     public boolean checkWin(String player) {
@@ -143,5 +126,41 @@ public class Main extends Applet implements MouseListener {
             }
         }
         
+        isTie = true;
         return true;
     }
+    
+    public void end(Graphics g, String player) {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+            
+        g.setColor(Color.black);
+        g.fillRect(0, 0, 600, 600);
+        
+        if (player != null) {
+            g.setColor(Color.white);
+            g.setFont(new Font("Monospaced", Font.PLAIN, 50));
+            g.drawString("Player " + player + " won!", 120, 300);
+            return;
+            
+        } else {
+            g.setColor(Color.white);
+            g.setFont(new Font("Monospaced", Font.PLAIN, 50));
+            g.drawString("It's a Tie!", 150, 300);
+            return;
+        }
+                    
+        
+    }
+        
+        
+        
+        
+        
+        
+  
+    
+}
