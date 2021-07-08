@@ -1,4 +1,4 @@
-//Note: This program assumes your window is 600 by 600
+//Note - This program assumes your window is 600 by 600
 
 import java.util.concurrent.TimeUnit;
 import java.awt.*;
