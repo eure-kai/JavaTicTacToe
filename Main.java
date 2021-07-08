@@ -53,34 +53,10 @@ public class Main extends Applet implements MouseListener {
         repaint();
     }
     
-    
     public void mouseReleased(MouseEvent e) {}
     
-    public void paint(Graphics g) {
-        if (isWin || isTie) return;
-        
-        g.setColor(Color.white);
-        g.drawLine(200, 0, 200, 600);
-        g.drawLine(400, 0, 400, 600);
-        
-        g.drawLine(0, 200, 600, 200);
-        g.drawLine(0, 400, 600, 400);
-        
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                
-                if (board[i][j] != null) {
-                    int xT = (i*200) + 10;
-                    int yT = (j*200) + 187;
-                    
-                    g.setFont(new Font("Monospaced", Font.PLAIN, 300));
-                    g.drawString(board[i][j], xT, yT);
-                }
-            }
-        }
-          
-        checkOver(g);
-    }
+    
+    
     
     
     public boolean checkWin(String player) {
@@ -123,6 +99,36 @@ public class Main extends Applet implements MouseListener {
     }
     
     
+    
+    
+    public void paint(Graphics g) {
+        if (isWin || isTie) return;
+        
+        g.setColor(Color.white);
+        g.drawLine(200, 0, 200, 600);
+        g.drawLine(400, 0, 400, 600);
+        
+        g.drawLine(0, 200, 600, 200);
+        g.drawLine(0, 400, 600, 400);
+        
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                
+                if (board[i][j] != null) {
+                    int xT = (i*200) + 10;
+                    int yT = (j*200) + 187;
+                    
+                    g.setFont(new Font("Monospaced", Font.PLAIN, 300));
+                    g.drawString(board[i][j], xT, yT);
+                }
+            }
+        }
+          
+        checkOver(g); //paint method is solely for graphics
+       //thus, we will do further calculations in a separate method
+    }
+    
+    
     public void checkOver(Graphics g) {
         boolean p1 = checkWin("O");
         boolean p2 = checkWin("X");
@@ -159,11 +165,5 @@ public class Main extends Applet implements MouseListener {
             return;
         }
                     
-        
     }
-        
-        
-        
-       
-    
 }
